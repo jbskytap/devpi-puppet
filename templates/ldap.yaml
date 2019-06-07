@@ -1,0 +1,10 @@
+#
+# THIS FILE IS MANAGED BY PUPPET!
+---
+devpi-ldap:
+  url: ldaps://sea9ldap1.corp.skytap.com
+  user_template: uid={username},ou=People,dc=skytap,dc=com
+  group_search:
+    base: ou=Groups,dc=skytap,dc=com
+    filter: '(&(objectClass=posixgroup)(|(memberUid={username})(uniqueMember={userdn})))'
+    attribute_name: cn

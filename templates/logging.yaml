@@ -1,0 +1,29 @@
+---
+
+version: 1
+disable_existing_loggers: False
+
+formatters:
+    console_detailed:
+        format: "[%(levelname)s] [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+        class: logging.Formatter
+
+    syslog:
+        format: "[%(process)d] %(message)s"
+        class: logging.Formatter
+
+handlers:
+    default:
+        level: INFO
+        class: logging.StreamHandler
+        formatter: console_detailed
+
+    syslog:
+        level: INFO
+        class: rfc5424logging.Rfc5424SysLogHandler
+        formatter: syslog
+        utc_timestamp: True
+
+root:
+    handlers: [default, syslog]
+    level: INFO

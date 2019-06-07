@@ -17,7 +17,7 @@ class devpi::nginx_config {
     File {
         owner       => 'www-data',
         group       => $username,
-        mode        => 0644,
+        mode        => "0644",
     }
 
     if $devpi::nginx::ensure {
