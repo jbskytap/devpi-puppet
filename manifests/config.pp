@@ -45,7 +45,7 @@ class devpi::config {
     File {
         owner       => $username,
         group       => $username,
-        mode        => 0644,
+        mode        => "0644",
     }
 
     # System user account & group
@@ -65,12 +65,12 @@ class devpi::config {
     # Data storage
     file { "${dataroot}":
         ensure      => directory,
-        mode        => 0755,
+        mode        => "0755",
         require     => [User[$username],],
     } ->
     file { "${dataroot}/data":
         ensure      => directory,
-        mode        => 0755,
+        mode        => "0755",
     }
 
     # Supervisor configuration
@@ -81,20 +81,28 @@ class devpi::config {
         group       => 'root',
         require     => [Package['supervisor'],],
     }
+    
+    # LDAP config
+    file { '/var/lib/devpi/.devpi/ldap.yaml':
+        ensure      => present,
+        content     => template('devpi/ldap.yaml'),
+        owner       => 'root',
+        group       => 'root',
+    }
 
     # Theming / WWW
     if $theme {
         file { "${dataroot}/www":
             ensure      => directory,
             source      => "puppet:///modules/${theme}",
-            mode        => 0755,
+            mode        => "0755",
             recurse     => true,
             require     => [User[$username],],
         }
     } else {
         file { "${dataroot}/www":
             ensure      => directory,
-            mode        => 0755,
+            mode        => "0755",
             require     => [User[$username],],
         }
     }
