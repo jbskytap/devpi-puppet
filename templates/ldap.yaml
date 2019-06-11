@@ -3,7 +3,11 @@
 ---
 devpi-ldap:
   url: ldaps://sea9ldap1.corp.skytap.com
-  user_template: uid={username},ou=People,dc=skytap,dc=com
+  #  user_template: uid={username},ou=People,dc=skytap,dc=com
+  user_search:
+    base: dc=skytap,dc=com
+    filter: '(&(objectClass=posixaccount)(uid={username}))'
+    attribute_name: dn
   group_search:
     base: ou=Groups,dc=skytap,dc=com
     filter: '(&(objectClass=posixgroup)(|(memberUid={username})(uniqueMember={userdn})))'
