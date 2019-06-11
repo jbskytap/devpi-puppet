@@ -83,7 +83,7 @@ class devpi::config {
     }
     
     # LDAP config
-    file { '${dataroot}/.devpi/ldap.yaml':
+    file { '/var/lib/devpi/.devpi/ldap.yaml':
         ensure      => present,
         content     => template('devpi/ldap.yaml'),
         owner       => 'root',
@@ -91,7 +91,7 @@ class devpi::config {
     }
 
     # Logging config
-    file { '${dataroot}/.devpi/logging.yaml':
+    file { '/var/lib/devpi/.devpi/logging.yaml':
         ensure      => present,
         content     => template('devpi/logging.yaml'),
         owner       => 'root',
